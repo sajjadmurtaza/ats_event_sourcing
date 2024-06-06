@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :job do
-    title { 'MyString' }
-    description { 'MyText' }
+    title { 'Software Developer' }
+    description { 'Develop and maintain web applications.' }
   end
 end

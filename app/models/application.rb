@@ -9,10 +9,12 @@ class Application < ApplicationRecord
   def status
     last_event = application_events.order(created_at: :desc).first
 
-    calculate_status(last_event, 'applied', {
-                       ApplicationInterviewEvent => 'interview',
-                       ApplicationHiredEvent => 'hired',
-                       ApplicationRejectedEvent => 'rejected'
-                     })
+    event_status_mapping = {
+      ApplicationInterviewEvent => 'interview',
+      ApplicationHiredEvent => 'hired',
+      ApplicationRejectedEvent => 'rejected'
+    }
+
+    calculate_status(last_event:, default_status: 'applied', event_status_mapping:)
   end
 end

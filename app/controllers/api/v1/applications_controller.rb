@@ -14,9 +14,9 @@ module Api
           {
             job_title: application.job.title,
             candidate_name: application.candidate_name,
-            # status: application.status,
-            # number_of_notes: application.application_events.where(type: 'ApplicationNoteEvent').count,
-            # interview_date: application.application_events.where(type: 'ApplicationInterviewEvent').last&.interview_date
+            status: application.status,
+            number_of_notes: application.application_events.where(eventable_type: 'ApplicationNoteEvent').count,
+            interview_date: application.application_events.where(eventable_type: 'ApplicationInterviewEvent')&.last&.eventable&.interview_date
           }
         end
 

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :application do
-    candidate_name { 'MyString' }
-    job { nil }
+    candidate_name { 'Alice' }
+    association :job
   end
 end

@@ -8,9 +8,18 @@ class Job < ApplicationRecord
 
   def status
     last_event = job_events.order(created_at: :desc).first
-    calculate_status(last_event, 'deactivated', {
-                       JobActivatedEvent => 'activated',
-                       JobDeactivatedEvent => 'deactivated'
-                     })
+
+    event_status_mapping = {
+      JobActivatedEvent => 'activated',
+      JobDeactivatedEvent => 'deactivated'
+    }
+
+    calculate_status(last_event:, default_status: 'deactivated', event_status_mapping:)
+  end
+
+  def ongoing_applications
+    applications.select do |application|
+      %w[hired rejected].exclude?(application.status)
+    end
   end
 end
