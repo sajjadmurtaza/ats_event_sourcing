@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class JobsService
-  def self.generate_jobs_data
-    jobs = Job.includes(:job_events)
+  def self.generate_jobs_data(page:, per_page:)
+    jobs = Job.includes(:job_events).paginate(page:, per_page:)
 
     jobs.map do |job|
       {

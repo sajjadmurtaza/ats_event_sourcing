@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class ApplicationsService
-  def self.generate_applications_data
+  def self.generate_applications_data(page:, per_page:)
     activated_jobs_ids = Job.joins(:job_events).where('job_events.type' => 'JobActivatedEvent').pluck(:id)
-    applications = Application.where(job_id: activated_jobs_ids)
+
+    applications = Application.where(job_id: activated_jobs_ids).paginate(page:, per_page:)
 
     applications.map do |application|
       {
